@@ -1,2 +1,2 @@
-# TESTEO-CALCU
-testeo para la calcu (borrar después)
+# Calculadora-Cuota-Simple
+Calculadora Cuota Simple
