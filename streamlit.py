@@ -829,17 +829,12 @@ if st.checkbox("Si usted tiene alguna consulta, haga click aquí"):
                     except github.GithubException:
                         pass
                         
-# PARA MOSTRAS LAS TASAS DE IIBB     
-tasas_por_provincia = pd.read_csv("Datos/Datos.csv")
-tasas_por_provincia = tasas_por_provincia[["Provincia", "Tasa IIBB"]].drop_duplicates().reset_index(drop=True)
-tasas_por_provincia["Tasa IIBB"] = (tasas_por_provincia["Tasa IIBB"] * 100 ).round(1).astype(str).str.replace(".",",") + "%"
-
-# Desplegable con scroll
-
-
-# Mostrar tabla completa
-st.write("Tasas de IIBB por provincia:")
-st.dataframe(tasas_por_provincia)
+# PARA MOSTRAS LAS TASAS DE IIBB  
+if st.checkbox("Tasas de ingresos brutos vigentes"):
+    tasas_por_provincia = pd.read_csv("Datos/Datos.csv")
+    tasas_por_provincia = tasas_por_provincia[["Provincia", "Tasa IIBB"]].drop_duplicates().reset_index(drop=True)
+    tasas_por_provincia["Tasa IIBB"] = (tasas_por_provincia["Tasa IIBB"] * 100 ).round(1).astype(str).str.replace(".",",") + "%"
+    st.dataframe(tasas_por_provincia)
 
                         
 st.write("---")
