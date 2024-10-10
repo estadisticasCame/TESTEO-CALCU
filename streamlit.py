@@ -826,6 +826,46 @@ if st.checkbox("Si usted tiene alguna consulta, haga click aquí"):
                         st.success("Consulta enviada exitosamente!") 
                     except github.GithubException:
                         pass
+                        
+# PARA MOSTRAS LAS TASAS DE IIBB                       
+tasas_por_provincia = df[["Provincia", "Tasa IIBB"]].drop_duplicates().reset_index(drop=True)
+tasas_por_provincia["Tasa IIBB"] = (tasas_por_provincia["Tasa IIBB"] * 100 ).round(1).astype(str).str.replace(".",",") + "%"
+
+# Desplegable con scroll
+provincia_seleccionada = st.selectbox("Selecciona una provincia", tasas_por_provincia["Provincia"], index=0, max_options=5)
+
+# Mostrar tabla completa
+st.write("Tasas de IIBB por provincia:")
+
+# Aplicar estilo con HTML
+table_style = """
+    <style>
+    .styled-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .styled-table thead tr {
+        background-color: #007bff;
+        color: white;
+        text-align: left;
+    }
+    .styled-table th, .styled-table td {
+        padding: 12px 15px;
+    }
+    .styled-table tbody tr {
+        border-bottom: 1px solid #dddddd;
+    }
+    </style>
+"""
+st.markdown(table_style, unsafe_allow_html=True)
+
+# Mostrar la tabla con formato
+st.markdown(
+    tasas_por_provincia.to_html(index=False, classes="styled-table"), 
+    unsafe_allow_html=True
+)
+
+                        
 st.write("---")
 # Titulo para las redes con estilo personalizado
 st.markdown(
